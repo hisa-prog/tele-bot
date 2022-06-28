@@ -1,21 +1,6 @@
-// const { Telegraf } = require("telegraf");
-// const TOKEN = "5153026043:AAEOA6Jgze21I8PGuZWKJoNMGY1Wzl6S5OI";
-// const bot = new Telegraf(TOKEN);
-
-// const web_link = "https://celebrated-torte-184681.netlify.app/";
-
-// bot.start((ctx) =>
-//   ctx.reply("Welcome :)))))", {
-//     reply_markup: {
-//       keyboard: [[{ text: "web app", web_app: { url: web_link } }]],
-//     },
-//   })
-// );
-
-// bot.launch();
 const TelegramAPI = require("node-telegram-bot-api");
 const token = "5472003650:AAGqWl2XOfOcVkPUAHR1sTf9E6flCc9u2CQ";
-const web_link = "http://localhost:3000/";
+const web_link = "https://tele-bot-three.vercel.app/";
 
 
 const bot = new TelegramAPI(token, { polling: true });
@@ -28,6 +13,15 @@ const walletOptions = {
             ]
         ]
     })
+}
+const shopButton = {
+  reply_markup : JSON.stringify({
+    inline_keyboard: [
+      [
+        { text: "Магазин", web_app: { url: web_link } }
+      ]
+  ]
+  })
 }
 let privateKey = ''
 
@@ -61,15 +55,11 @@ bot.on("message", async (item) => {
         walletOptions
     )
   }else if (text === '/shop') {
-    await bot.sendMessage(
+      await bot.sendMessage(
         idChat,
-        `Открыть магазин`,
-        {
-          reply_markup: {
-            keyboard: [[{ text: "web app", web_app: { url: web_link } }]],
-          },
-        }
-    )
+        `Открыть магазин:`,
+        shopButton
+      )
   } else return bot.sendMessage(idChat, "Я вас не понимаю :)");
 });
 
